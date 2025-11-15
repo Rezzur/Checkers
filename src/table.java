@@ -1,11 +1,11 @@
 public class table {
-    private int[][] board;
+    private byte[][] board;
 
     public table(int o) {
-        this.board = new int[8][8];
+        this.board = new byte[8][8];
         for(int i=0;i<8;i++){
             for(int j=0;j<8;j++){
-                board[i][j]=o;
+                board[i][j]= (byte) o;
             }
         }
     }
