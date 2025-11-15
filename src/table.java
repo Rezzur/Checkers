@@ -1,5 +1,5 @@
 public class table {
-    int[][] board;
+    private int[][] board;
 
     public table(int o) {
         this.board = new int[8][8];
@@ -7,6 +7,19 @@ public class table {
             for(int j=0;j<8;j++){
                 board[i][j]=o;
             }
+        }
+    }
+    public void arrangement() {
+        for(int k=7;k>=0;k--){
+                if(k%2==0) {
+                    for(int k1=0;k1<8;k1+=2){
+                        board[k][k1] = 1;
+                    }
+                }else {
+                    for (int k1 = 1; k1 < 8; k1 += 2) {
+                        board[k][k1] = 1;
+                    }
+                }
         }
     }
     @Override
