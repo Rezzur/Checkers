@@ -18,11 +18,11 @@ public class checkers {
 
     public boolean checkMotion(Object[][] GameBoard, byte x, byte y, byte color){
         if(color == 0) {
-            if (y == this.y + 1 & (x == this.x - 1) || (x == this.x + 1)) {
+            if (y == this.y + 1 & ((x == this.x - 1) || (x == this.x + 1))) {
                 return true;
             }
         } else if (color == 1) {
-            if (y == this.y - 1 & (x == this.x - 1) || (x == this.x + 1)) {
+            if (y == this.y - 1 & ((x == this.x - 1) || (x == this.x + 1))) {
                 return true;
             }
         }
@@ -31,7 +31,7 @@ public class checkers {
     public void MotionWhite(Object[][] GameBoard, byte x, byte y, byte color) {
         if (checkMotion(GameBoard, x, y, color) == true) {
             GameBoard[x][y] = new checkers(x, y, color);
-            GameBoard[this.x][this.y] = 0;
+            GameBoard[this.x][this.y] = "0";
             this.x = x;
             this.y = y;
         }
