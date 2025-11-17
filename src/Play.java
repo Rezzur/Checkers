@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.Scanner;
 public class Play {
     public static void main(String[] args) {
@@ -15,9 +16,9 @@ public class Play {
                 byte
                         nowx = sc.nextByte();
                 byte nowy = sc.nextByte();
-                if (game.GameBoard[nowx][nowy] != "0") {
-                        if(((checkers) game.GameBoard[nowx][nowy]).getColor()==current_color) {
-                            current_ch = (checkers) game.GameBoard[nowx][nowy];
+                if (game.getGameBoard()[nowx][nowy] != "0") {
+                        if(((checkers) game.getGameBoard()[nowx][nowy]).getColor()==current_color) {
+                            current_ch = (checkers) game.getGameBoard()[nowx][nowy];
                             flagprisvoenia = true;
                             if(current_ch.getColor()==1){
                                 System.out.println("Выбранна черная шашка("+nowx+";" +
@@ -38,22 +39,26 @@ public class Play {
             byte y = sc.nextByte();
             flagprisvoenia = false;
             if (current_ch.getColor()==1) {
-                current_ch.MotionWhite(game.GameBoard, x, y, current_color);
+                if(current_ch.checkKill(game.getGameBoard(),  x, y)==true) {
+                    current_ch.killCh(game.getGameBoard(), x, y);
+                    System.out.println("12312312312312");
+                }else{
+                    current_ch.MotionWhite(game.getGameBoard(), x, y, current_color);
+                    System.out.println("---------------------------------");
+                }
                 if(current_ch.getX()==x & current_ch.getY()==y){
                     num++;
                     current_color = 0;
-                    System.out.println(game);
-                }else{
-                    System.out.println("Вы не можете ходить сюда)");
                 }
-            } else {
-                current_ch.MotionWhite(game.GameBoard, x, y, current_ch.getColor());
+            } else{
+                    if(current_ch.checkKill(game.getGameBoard(),  x, y)==true) {
+                        current_ch.killCh(game.getGameBoard(), x, y);
+                    }else{
+                        current_ch.MotionWhite(game.getGameBoard(), x, y, current_color);
+                    }
                 if(current_ch.getX()==x & current_ch.getY()==y){
                     num++;
                     current_color = 1;
-                    System.out.println(game);
-                }else {
-                    System.out.println("Вы не можете ходить сюда)");
                 }
 
             }
