@@ -35,43 +35,65 @@ public class checkers {
         }
         return false;
     }
-    public void killCh(Object[][] GameBoard, byte x, byte y){
-        if(GameBoard[this.x+1][this.y+1]!="0" & GameBoard[this.x+2][this.y+2]=="0" & (this.x+2 == x & this.y+2 == y) ){
-            if(((checkers) GameBoard[this.x+1][this.y+1]).getColor()!=this.color) {
-                GameBoard[x][y] = new checkers(x, y, this.color);
-                GameBoard[this.x][this.y] = "0";
-                GameBoard[this.x+1][this.y+1] = "0";
+    public void killCh(Object[][] GameBoard, byte x, byte y) {
+        try {
+            if ((GameBoard[this.x + 1][this.y + 1] != "0" & GameBoard[this.x + 2][this.y + 2] == "0" & (this.x + 2 == x & this.y + 2 == y))) {
+                if (((checkers) GameBoard[this.x + 1][this.y + 1]).getColor() != this.color) {
+                    GameBoard[x][y] = GameBoard[this.getX()][this.getY()];
+                    GameBoard[this.x][this.y] = "0";
+                    GameBoard[this.x + 1][this.y + 1] = "0";
+                    this.x = x;
+                    this.y = y;
+                }
             }
+        } catch (Exception e) {
+            System.out.println();
         }
 // Добавить проверку границ.
-        if(GameBoard[this.x+1][this.y-1]!="0" & GameBoard[this.x+2][this.y-2]=="0" & (this.x+2 == x & this.y-2 == y)){
-            if(((checkers) GameBoard[this.x+1][this.y-1]).getColor()!=this.color) {
-                GameBoard[x][y] = new checkers(x, y, this.color);
-                GameBoard[this.x][this.y] = "0";
-                GameBoard[this.x+1][this.y-1] = "0";
+        try {
+            if ((GameBoard[this.x + 1][this.y - 1] != "0" & GameBoard[this.x + 2][this.y - 2] == "0" & (this.x + 2 == x & this.y - 2 == y))) {
+                if (((checkers) GameBoard[this.x + 1][this.y - 1]).getColor() != this.color) {
+                    GameBoard[x][y] = GameBoard[this.getX()][this.getY()];
+                    GameBoard[this.x][this.y] = "0";
+                    GameBoard[this.x + 1][this.y - 1] = "0";
+                    this.x = x;
+                    this.y = y;
+                }
             }
+        } catch (Exception e) {
+            System.out.println();
         }
-
-        if(GameBoard[this.x-1][this.y+1]!="0" & GameBoard[this.x-2][this.y+2]=="0"  & (this.x-2 == x & this.y+2 == y)){
-            if(((checkers) GameBoard[this.x-1][this.y+1]).getColor()!=this.color) {
-                GameBoard[x][y] = new checkers(x, y, this.color);
-                GameBoard[this.x][this.y] = "0";
-                GameBoard[this.x-1][this.y+1] = "0";
+        try {
+            if ((GameBoard[this.x - 1][this.y + 1] != "0" & GameBoard[this.x - 2][this.y + 2] == "0" & (this.x - 2 == x & this.y + 2 == y))) {
+                if (((checkers) GameBoard[this.x - 1][this.y + 1]).getColor() != this.color) {
+                    GameBoard[x][y] = GameBoard[this.getX()][this.getY()];
+                    GameBoard[this.x][this.y] = "0";
+                    GameBoard[this.x - 1][this.y + 1] = "0";
+                    this.x = x;
+                    this.y = y;
+                }
             }
+        } catch (Exception e) {
+            System.out.println();
         }
-
-        if(GameBoard[this.x-1][this.y-1]!="0" & GameBoard[this.x-2][this.y-2]=="0"  & (this.x-2 == x & this.y-2 == y)){
-            if(((checkers) GameBoard[this.x-1][this.y-1]).getColor()!=this.color) {
-                GameBoard[x][y] = new checkers(x, y, this.color);
-                GameBoard[this.x][this.y] = "0";
-                GameBoard[this.x-1][this.y-1] = "0";
+        try {
+            if ((GameBoard[this.x - 1][this.y - 1] != "0" & GameBoard[this.x - 2][this.y - 2] == "0" & (this.x - 2 == x & this.y - 2 == y))) {
+                if (((checkers) GameBoard[this.x - 1][this.y - 1]).getColor() != this.color) {
+                    GameBoard[x][y] = GameBoard[this.getX()][this.getY()];
+                    GameBoard[this.x][this.y] = "0";
+                    GameBoard[this.x - 1][this.y - 1] = "0";
+                    this.x = x;
+                    this.y = y;
+                }
             }
+
+        } catch (Exception e) {
+            System.out.println();
         }
     }
-
     public void MotionWhite(Object[][] GameBoard, byte x, byte y, byte color) {
         if (checkMotion(GameBoard, x, y, color) == true) {
-            GameBoard[x][y] = new checkers(x, y, color);
+            GameBoard[x][y] =  GameBoard[this.x][this.y];
             GameBoard[this.x][this.y] = "0";
             this.x = x;
             this.y = y;

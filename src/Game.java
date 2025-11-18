@@ -84,13 +84,18 @@ public class Game {
 
     @Override
     public String toString() {
-        String s = "";
+        String s = "0   1   2   3   4   5   6   7\n";
         for (int i = 0; i < 8; i++) {
-            s += "   ";
+            s+=i;
             for (int j = 0; j < 8; j++) {
-                s += GameBoard[j][i] + "\t";
+                if(GameBoard[j][i]=="0"){
+                    s+= "  "+GameBoard[j][i]+"  ";
+                }else {
+                    s += " " + GameBoard[j][i] + " ";
+                }
             }
             s += "\n\n";
+
         }
         return s;
     }

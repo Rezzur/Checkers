@@ -13,8 +13,7 @@ public class Play {
             System.out.println(game);
             System.out.println("Координаты шашки для хода: ");
             while(flagprisvoenia!=true) {
-                byte
-                        nowx = sc.nextByte();
+                byte nowx = sc.nextByte();
                 byte nowy = sc.nextByte();
                 if (game.getGameBoard()[nowx][nowy] != "0") {
                         if(((checkers) game.getGameBoard()[nowx][nowy]).getColor()==current_color) {
@@ -25,7 +24,7 @@ public class Play {
                                         ""+nowy+")");
                             }else{
                                 System.out.println("Выбранна белая" +
-                                        " шашка("+nowx+""+nowy+")");
+                                        " шашка("+nowx+";"+nowy+")");
                             }
                         }else{
                             System.out.println("Не ваша очередь!");
@@ -41,10 +40,10 @@ public class Play {
             if (current_ch.getColor()==1) {
                 if(current_ch.checkKill(game.getGameBoard(),  x, y)==true) {
                     current_ch.killCh(game.getGameBoard(), x, y);
-                    System.out.println("12312312312312");
+                    System.out.println(current_ch.getX()+"^^"+current_ch.getY());
                 }else{
                     current_ch.MotionWhite(game.getGameBoard(), x, y, current_color);
-                    System.out.println("---------------------------------");
+                    System.out.println(current_ch.getX()+"^^"+current_ch.getY());
                 }
                 if(current_ch.getX()==x & current_ch.getY()==y){
                     num++;
@@ -53,16 +52,17 @@ public class Play {
             } else{
                     if(current_ch.checkKill(game.getGameBoard(),  x, y)==true) {
                         current_ch.killCh(game.getGameBoard(), x, y);
+                        System.out.println(current_ch.getX()+"^^"+current_ch.getY());
                     }else{
                         current_ch.MotionWhite(game.getGameBoard(), x, y, current_color);
+                        System.out.println(current_ch.getX()+"^^"+current_ch.getY());
                     }
-                if(current_ch.getX()==x & current_ch.getY()==y){
-                    num++;
-                    current_color = 1;
+                    if(current_ch.getX()==x & current_ch.getY()==y){
+                        num++;
+                        current_color = 1;
+                    }
                 }
-
             }
-        }
     }
         /*System.out.println(game.chb1.getX()+" "+game.chb1.getY());
         System.out.println(game.chb1.checkMotion(game.GameBoard, x,y));
