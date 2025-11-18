@@ -16,6 +16,46 @@ public class checkers {
     public byte getY() {
         return this.y;
     }
+    public byte[] сheckKillForMultiKill(Object[][] GameBoard){
+        if((this.x <= 5 & this.x >=0)&(this.y <= 5 & this.y >=0)){
+            if (GameBoard[this.x + 1][this.y + 1] != "0" & GameBoard[this.x + 2][this.y + 2] == "0") {
+                if (((checkers) GameBoard[this.x + 1][this.y + 1]).getColor() != this.color) {
+                    byte[] arr = new byte[]{((byte) (this.x+2)),((byte) (this.y+2))};
+                    return arr;
+                }
+            }
+        }
+        if((this.x <= 5 & this.x >=0)&(this.y <= 7 & this.y >=2)) {
+            if (GameBoard[this.x + 1][this.y - 1] != "0" & GameBoard[this.x + 2][this.y - 2] == "0") {
+                if (((checkers) GameBoard[this.x + 1][this.y - 1]).getColor() != this.color) {
+                    byte[] arr = new byte[]{((byte) (this.x+2)),((byte) (this.y-2))};
+                    return arr;
+                }
+            }
+        }
+        if((this.x <= 7 & this.x >=2)&(this.y <= 5 & this.y >=0)) {
+            if (GameBoard[this.x - 1][this.y + 1] != "0" & GameBoard[this.x - 2][this.y + 2] == "0") {
+                if (((checkers) GameBoard[this.x - 1][this.y + 1]).getColor() != this.color) {
+                    byte[] arr = new byte[]{((byte) (this.x-2)),((byte) (this.y+2))};
+                    return arr;
+                }
+            }
+        }
+        if((this.x <= 7 & this.x >=2)&(this.y <= 7 & this.y >=2)) {
+            if (GameBoard[this.x - 1][this.y - 1] != "0" & GameBoard[this.x - 2][this.y - 2] == "0") {
+                if (((checkers) GameBoard[this.x - 1][this.y - 1]).getColor() != this.color) {
+                    byte[] arr = new byte[]{((byte) (this.x-2)),((byte) (this.y-2))};
+                    return arr;
+                }
+            }
+        }
+        byte[] arr = new byte[]{-1,-1};
+        return arr;
+    }
+    byte[] arr = new byte[2];
+    public byte[] checkMultiKill(Object[][] GameBoard, byte x, byte y){
+        return arr;
+    }
     // Проверка возможен ли ход. Возвращает true если ход возможен
     public boolean checkMotion(Object[][] GameBoard, byte x, byte y, byte color){
         if(color == 0) {
@@ -99,7 +139,7 @@ public class checkers {
             this.y = y;
         }
     }
-    public boolean checkKill(Object[][] GameBoard, byte x, byte y) {
+    public boolean checkKill(Object[][] GameBoard) {
         if((this.x <= 5 & this.x >=0)&(this.y <= 5 & this.y >=0)){
             if (GameBoard[this.x + 1][this.y + 1] != "0" & GameBoard[this.x + 2][this.y + 2] == "0") {
                 if (((checkers) GameBoard[this.x + 1][this.y + 1]).getColor() != this.color) {
