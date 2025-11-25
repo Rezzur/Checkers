@@ -1,4 +1,3 @@
-import java.sql.SQLOutput;
 import java.util.Random;
 import java.util.Scanner;
 public class Play {
@@ -6,10 +5,8 @@ public class Play {
         Game game = new Game();
         Scanner sc = new Scanner(System.in);
         Random rn = new Random();
-        int num = 0;
         boolean flagprisvoenia=false;
-        checkers current_ch = null;
-        boolean flag=false;
+        Сheckers current_ch = null;
         System.out.println("Введите цвет(1 - черные, 0 - белые, 3 - Рандом)");
         byte current_color = sc.nextByte();
         if (current_color == 3){
@@ -23,17 +20,37 @@ public class Play {
         while (0 == 0) {
             System.out.println(game);
             System.out.println("Координаты шашки для хода: ");
-            while(flagprisvoenia!=true) {
+            boolean flag_rubka = false;
+            short count=0;
+            while(!flagprisvoenia) {
                 byte nowx = sc.nextByte();
                 byte nowy = sc.nextByte();
-
-                if((((checkers)game.getGameBoard()[nowx][nowy]).checkKill(game.getGameBoard()))==false){
-                    System.out.println("Рубка обязательна!");
-                    continue;
-                }
+                        for (int i = 0; i <= 7; i++) {
+                            for (int j = 0; j <= 7; j++) {
+                                try {
+                                    if (((Сheckers) game.getGameBoard()[i][j]).checkKill(game.getGameBoard()) == true & ((Сheckers) game.getGameBoard()[i][j]).getColor() == current_color) {
+                                        flag_rubka = true;
+                                        count++;
+                                    }
+                                } catch (Exception e) {}
+                            }
+                        }
+                    if(flag_rubka) {
+                        if (count == 1) {
+                            if (((Сheckers) game.getGameBoard()[nowx][nowy]).checkKill(game.getGameBoard()) != true) {
+                                System.out.println("Рубка обязательна!");
+                                continue;
+                            }
+                        } else {
+                            if (((Сheckers) game.getGameBoard()[nowx][nowy]).checkKill(game.getGameBoard()) != true) {
+                                System.out.println("Рубка обязательна!");
+                                continue;
+                            }
+                        }
+                    }
                 if (game.getGameBoard()[nowx][nowy] != "0") {
-                        if(((checkers) game.getGameBoard()[nowx][nowy]).getColor()==current_color) {
-                            current_ch = (checkers) game.getGameBoard()[nowx][nowy];
+                        if(((Сheckers) game.getGameBoard()[nowx][nowy]).getColor()==current_color) {
+                            current_ch = (Сheckers) game.getGameBoard()[nowx][nowy];
                             flagprisvoenia = true;
                             if(current_ch.getColor()==1){
                                 System.out.println("Выбранна черная шашка("+nowx+";" +
@@ -59,19 +76,15 @@ public class Play {
                         current_ch.killCh(game.getGameBoard(), x, y);
                         System.out.println(game);
                         if((current_ch.сheckKillForMultiKill(game.getGameBoard())[0])!=-1 & (current_ch.сheckKillForMultiKill(game.getGameBoard())[1])!=-1) {
-                            System.out.println("Рубка обязательна!");
+                            System.out.println("Рубка обязательна!!!!!!");
                             x = sc.nextByte();
                             y = sc.nextByte();
                         }
                     }
-                    //current_ch.killCh(game.getGameBoard(), x, y);
-                    System.out.println((current_ch.сheckKillForMultiKill(game.getGameBoard()))[0]+""+(current_ch.сheckKillForMultiKill(game.getGameBoard()))[1]);
                 }else{
-                    current_ch.MotionWhite(game.getGameBoard(), x, y, current_color);
-                    System.out.println(current_ch.сheckKillForMultiKill(game.getGameBoard()));
+                    current_ch.MotionCh(game.getGameBoard(), x, y, current_color);
                 }
                 if(current_ch.getX()==x & current_ch.getY()==y){
-                    num++;
                     current_color = 0;
                 }
             } else{
@@ -80,25 +93,19 @@ public class Play {
                             current_ch.killCh(game.getGameBoard(), x, y);
                             System.out.println(game);
                             if((current_ch.сheckKillForMultiKill(game.getGameBoard())[0])!=-1 & (current_ch.сheckKillForMultiKill(game.getGameBoard())[1])!=-1) {
-                                System.out.println("Рубка обязательна!");
+                                System.out.println("Рубка обязательна!!!!");
                                 x = sc.nextByte();
                                 y = sc.nextByte();
                             }
                         }
-                        //current_ch.killCh(game.getGameBoard(), x, y);
-                        System.out.println(current_ch.сheckKillForMultiKill(game.getGameBoard()));
+
                     }else{
-                        current_ch.MotionWhite(game.getGameBoard(), x, y, current_color);
-                        System.out.println(current_ch.сheckKillForMultiKill(game.getGameBoard()));
+                        current_ch.MotionCh(game.getGameBoard(), x, y, current_color);
                     }
                     if(current_ch.getX()==x & current_ch.getY()==y){
-                        num++;
                         current_color = 1;
                     }
                 }
             }
     }
-        /*System.out.println(game.chb1.getX()+" "+game.chb1.getY());
-        System.out.println(game.chb1.checkMotion(game.GameBoard, x,y));
-        System.out.println(game.chb1.getX()+game.chb1.getY());*/
 }
