@@ -1,10 +1,25 @@
 import java.util.Random;
 import java.util.Scanner;
 public class Play {
+    public static boolean theEnd(Object[][] GameBoard) {
+        byte count = 0;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (GameBoard[i][j] != "0") {
+                    count++;
+                }
+            }
+        }
+        if (count == 1) {
+            return true;
+        }
+        return false;
+    }
     public static void main(String[] args) {
         Game game = new Game();
         Scanner sc = new Scanner(System.in);
         Random rn = new Random();
+        boolean end = false;
         boolean flagprisvoenia=false;
         Сheckers current_ch = null;
         System.out.println("Введите цвет(1 - черные, 0 - белые, 3 - Рандом)");
@@ -17,7 +32,7 @@ public class Play {
                 System.out.println("Белые");
             }
         }
-        while (0 == 0) {
+        while (end == false) {
             System.out.println(game);
             System.out.println("Координаты шашки для хода: ");
             boolean flag_rubka = false;
@@ -37,14 +52,18 @@ public class Play {
                         }
                     if(flag_rubka) {
                         if (count == 1) {
-                            if (((Сheckers) game.getGameBoard()[nowx][nowy]).checkKill(game.getGameBoard()) != true) {
-                                System.out.println("Рубка обязательна!");
-                                continue;
+                            if(current_ch.getClass()==game.getGameBoard()[nowx][nowy].getClass()) {
+                                if (((Сheckers) game.getGameBoard()[nowx][nowy]).checkKill(game.getGameBoard()) != true) {
+                                    System.out.println("Рубка обязательна!");
+                                    continue;
+                                }
                             }
                         } else {
-                            if (((Сheckers) game.getGameBoard()[nowx][nowy]).checkKill(game.getGameBoard()) != true) {
-                                System.out.println("Рубка обязательна!");
-                                continue;
+                            if(current_ch.getClass()==game.getGameBoard()[nowx][nowy].getClass()) {
+                                if (((Сheckers) game.getGameBoard()[nowx][nowy]).checkKill(game.getGameBoard()) != true) {
+                                    System.out.println("Рубка обязательна!");
+                                    continue;
+                                }
                             }
                         }
                     }
@@ -69,6 +88,10 @@ public class Play {
             System.out.println("Куда хотите сходить?");
             byte x = sc.nextByte();
             byte y = sc.nextByte();
+            if(current_ch.getX() == x && current_ch.getY() == y) {
+                System.out.println("Неверные координаты!");
+                continue;
+            }
             flagprisvoenia = false;
             if (current_ch.getColor()==1) {
                 if(current_ch.checkKill(game.getGameBoard())==true) {
@@ -76,7 +99,7 @@ public class Play {
                         current_ch.killCh(game.getGameBoard(), x, y);
                         System.out.println(game);
                         if((current_ch.сheckKillForMultiKill(game.getGameBoard())[0])!=-1 & (current_ch.сheckKillForMultiKill(game.getGameBoard())[1])!=-1) {
-                            System.out.println("Рубка обязательна!!!!!!");
+                            System.out.println("Рубка обязательна!");
                             x = sc.nextByte();
                             y = sc.nextByte();
                         }
@@ -93,7 +116,7 @@ public class Play {
                             current_ch.killCh(game.getGameBoard(), x, y);
                             System.out.println(game);
                             if((current_ch.сheckKillForMultiKill(game.getGameBoard())[0])!=-1 & (current_ch.сheckKillForMultiKill(game.getGameBoard())[1])!=-1) {
-                                System.out.println("Рубка обязательна!!!!");
+                                System.out.println("Рубка обязательна!");
                                 x = sc.nextByte();
                                 y = sc.nextByte();
                             }
@@ -106,6 +129,12 @@ public class Play {
                         current_color = 1;
                     }
                 }
+            end = theEnd(game.getGameBoard());
             }
+        if(current_ch.getColor()==1) {
+            System.out.println("ИГРА ОКОНЧЕНА!\nПобедили черные!");
+        }else{
+            System.out.println("ИГРА ОКОНЧЕНА!\nПобедили белые!");
+        }
     }
 }

@@ -29,6 +29,7 @@ public class Game {
     Сheckers chb11 = new Сheckers((byte) 2,(byte) 5,(byte) 1);
     Сheckers chb12 = new Сheckers((byte) 0,(byte) 5,(byte) 1);
 
+
     private Object[][] GameBoard;
     public Game() {
         this.GameBoard = new Object[8][8];
