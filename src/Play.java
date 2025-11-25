@@ -2,15 +2,19 @@ import java.util.Random;
 import java.util.Scanner;
 public class Play {
     public static boolean theEnd(Object[][] GameBoard) {
-        byte count = 0;
+        byte countBlack = 0;
+        byte countWhite = 0;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (GameBoard[i][j] != "0") {
-                    count++;
+                    if(((Checkers) GameBoard[i][j]).getColor()==1)
+                        countBlack++;
+                    else  if(((Checkers) GameBoard[i][j]).getColor()==0)
+                        countWhite++;
                 }
             }
         }
-        if (count == 1) {
+        if (countBlack == 0 || countWhite == 0) {
             return true;
         }
         return false;
@@ -21,7 +25,7 @@ public class Play {
         Random rn = new Random();
         boolean end = false;
         boolean flagprisvoenia=false;
-        Сheckers current_ch = null;
+        Checkers current_ch = null;
         System.out.println("Введите цвет(1 - черные, 0 - белые, 3 - Рандом)");
         byte current_color = sc.nextByte();
         if (current_color == 3){
@@ -43,7 +47,7 @@ public class Play {
                         for (int i = 0; i <= 7; i++) {
                             for (int j = 0; j <= 7; j++) {
                                 try {
-                                    if (((Сheckers) game.getGameBoard()[i][j]).checkKill(game.getGameBoard()) == true & ((Сheckers) game.getGameBoard()[i][j]).getColor() == current_color) {
+                                    if (((Checkers) game.getGameBoard()[i][j]).checkKill(game.getGameBoard()) == true & ((Checkers) game.getGameBoard()[i][j]).getColor() == current_color) {
                                         flag_rubka = true;
                                         count++;
                                     }
@@ -53,14 +57,14 @@ public class Play {
                     if(flag_rubka) {
                         if (count == 1) {
                             if(current_ch.getClass()==game.getGameBoard()[nowx][nowy].getClass()) {
-                                if (((Сheckers) game.getGameBoard()[nowx][nowy]).checkKill(game.getGameBoard()) != true) {
+                                if (((Checkers) game.getGameBoard()[nowx][nowy]).checkKill(game.getGameBoard()) != true) {
                                     System.out.println("Рубка обязательна!");
                                     continue;
                                 }
                             }
                         } else {
                             if(current_ch.getClass()==game.getGameBoard()[nowx][nowy].getClass()) {
-                                if (((Сheckers) game.getGameBoard()[nowx][nowy]).checkKill(game.getGameBoard()) != true) {
+                                if (((Checkers) game.getGameBoard()[nowx][nowy]).checkKill(game.getGameBoard()) != true) {
                                     System.out.println("Рубка обязательна!");
                                     continue;
                                 }
@@ -68,8 +72,8 @@ public class Play {
                         }
                     }
                 if (game.getGameBoard()[nowx][nowy] != "0") {
-                        if(((Сheckers) game.getGameBoard()[nowx][nowy]).getColor()==current_color) {
-                            current_ch = (Сheckers) game.getGameBoard()[nowx][nowy];
+                        if(((Checkers) game.getGameBoard()[nowx][nowy]).getColor()==current_color) {
+                            current_ch = (Checkers) game.getGameBoard()[nowx][nowy];
                             flagprisvoenia = true;
                             if(current_ch.getColor()==1){
                                 System.out.println("Выбранна черная шашка("+nowx+";" +

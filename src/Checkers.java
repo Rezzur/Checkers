@@ -1,9 +1,9 @@
-public class Сheckers {
+public class Checkers {
     private byte x;
     private byte y;
     private byte color;
     public byte type;
-    public Сheckers(byte x, byte y, byte color){
+    public Checkers(byte x, byte y, byte color){
         this.x = x;
         this.y = y;
         this.color = color;
@@ -17,7 +17,7 @@ public class Сheckers {
     public byte[] сheckKillForMultiKill(Object[][] GameBoard){
         if((this.x <=5)&(this.y <= 5)){
             if (GameBoard[this.x + 1][this.y + 1] != "0" & GameBoard[this.x + 2][this.y + 2] == "0") {
-                if (((Сheckers) GameBoard[this.x + 1][this.y + 1]).getColor() != this.color) {
+                if (((Checkers) GameBoard[this.x + 1][this.y + 1]).getColor() != this.color) {
                     byte[] arr = new byte[]{((byte) (this.x+2)),((byte) (this.y+2))};
                     return arr;
                 }
@@ -25,7 +25,7 @@ public class Сheckers {
         }
         if((this.x <=5)&(this.y <= 7 & this.y >=2)) {
             if (GameBoard[this.x + 1][this.y - 1] != "0" & GameBoard[this.x + 2][this.y - 2] == "0") {
-                if (((Сheckers) GameBoard[this.x + 1][this.y - 1]).getColor() != this.color) {
+                if (((Checkers) GameBoard[this.x + 1][this.y - 1]).getColor() != this.color) {
                     byte[] arr = new byte[]{((byte) (this.x+2)),((byte) (this.y-2))};
                     return arr;
                 }
@@ -33,7 +33,7 @@ public class Сheckers {
         }
         if((this.x <= 7 & this.x >=2)&(this.y <= 5)) {
             if (GameBoard[this.x - 1][this.y + 1] != "0" & GameBoard[this.x - 2][this.y + 2] == "0") {
-                if (((Сheckers) GameBoard[this.x - 1][this.y + 1]).getColor() != this.color) {
+                if (((Checkers) GameBoard[this.x - 1][this.y + 1]).getColor() != this.color) {
                     byte[] arr = new byte[]{((byte) (this.x-2)),((byte) (this.y+2))};
                     return arr;
                 }
@@ -41,7 +41,7 @@ public class Сheckers {
         }
         if((this.x <= 7 & this.x >=2)&(this.y <= 7 & this.y >=2)) {
             if (GameBoard[this.x - 1][this.y - 1] != "0" & GameBoard[this.x - 2][this.y - 2] == "0") {
-                if (((Сheckers) GameBoard[this.x - 1][this.y - 1]).getColor() != this.color) {
+                if (((Checkers) GameBoard[this.x - 1][this.y - 1]).getColor() != this.color) {
                     byte[] arr = new byte[]{((byte) (this.x-2)),((byte) (this.y-2))};
                     return arr;
                 }
@@ -91,44 +91,40 @@ public class Сheckers {
     public void killCh(Object[][] GameBoard, byte x, byte y) {
         try {
             if ((GameBoard[this.x + 1][this.y + 1] != "0" & GameBoard[this.x + 2][this.y + 2] == "0" & (this.x + 2 == x & this.y + 2 == y))) {
-                if (((Сheckers) GameBoard[this.x + 1][this.y + 1]).getColor() != this.color) {
+                if (((Checkers) GameBoard[this.x + 1][this.y + 1]).getColor() != this.color) {
                     GameBoard[this.x + 1][this.y + 1] = "0";
                     motion(GameBoard, x, y);
                 }
             }
-        } catch (Exception e) {
-            System.out.println();
+        } catch (ArrayIndexOutOfBoundsException e) {
         }
         try {
             if ((GameBoard[this.x + 1][this.y - 1] != "0" & GameBoard[this.x + 2][this.y - 2] == "0" & (this.x + 2 == x & this.y - 2 == y))) {
-                if (((Сheckers) GameBoard[this.x + 1][this.y - 1]).getColor() != this.color) {
+                if (((Checkers) GameBoard[this.x + 1][this.y - 1]).getColor() != this.color) {
                     GameBoard[this.x + 1][this.y - 1] = "0";
                     motion(GameBoard, x, y);
                 }
             }
-        } catch (Exception e) {
-            System.out.println();
+        } catch (ArrayIndexOutOfBoundsException e) {
         }
         try {
             if ((GameBoard[this.x - 1][this.y + 1] != "0" & GameBoard[this.x - 2][this.y + 2] == "0" & (this.x - 2 == x & this.y + 2 == y))) {
-                if (((Сheckers) GameBoard[this.x - 1][this.y + 1]).getColor() != this.color) {
+                if (((Checkers) GameBoard[this.x - 1][this.y + 1]).getColor() != this.color) {
                     GameBoard[this.x - 1][this.y + 1] = "0";
                     motion(GameBoard, x, y);
                 }
             }
-        } catch (Exception e) {
-            System.out.println();
+        } catch (ArrayIndexOutOfBoundsException e) {
         }
         try {
             if ((GameBoard[this.x - 1][this.y - 1] != "0" & GameBoard[this.x - 2][this.y - 2] == "0" & (this.x - 2 == x & this.y - 2 == y))) {
-                if (((Сheckers) GameBoard[this.x - 1][this.y - 1]).getColor() != this.color) {
+                if (((Checkers) GameBoard[this.x - 1][this.y - 1]).getColor() != this.color) {
                     GameBoard[this.x - 1][this.y - 1] = "0";
                     motion(GameBoard, x, y);
                 }
             }
 
-        } catch (Exception e) {
-            System.out.println();
+        } catch (ArrayIndexOutOfBoundsException e) {
         }
     }
     public void motion(Object[][] GameBoard, byte x, byte y){
@@ -146,28 +142,28 @@ public class Сheckers {
         try {
             if ((this.x <= 5 & this.x >= 0) & (this.y <= 5 & this.y >= 0)) {
                 if (GameBoard[this.x + 1][this.y + 1] != "0" & GameBoard[this.x + 2][this.y + 2] == "0") {
-                    if (((Сheckers) GameBoard[this.x + 1][this.y + 1]).getColor() != this.color) {
+                    if (((Checkers) GameBoard[this.x + 1][this.y + 1]).getColor() != this.color) {
                         return true;
                     }
                 }
             }
             if ((this.x <= 5 & this.x >= 0) & (this.y <= 7 & this.y >= 2)) {
                 if (GameBoard[this.x + 1][this.y - 1] != "0" & GameBoard[this.x + 2][this.y - 2] == "0") {
-                    if (((Сheckers) GameBoard[this.x + 1][this.y - 1]).getColor() != this.color) {
+                    if (((Checkers) GameBoard[this.x + 1][this.y - 1]).getColor() != this.color) {
                         return true;
                     }
                 }
             }
             if ((this.x <= 7 & this.x >= 2) & (this.y <= 5 & this.y >= 0)) {
                 if (GameBoard[this.x - 1][this.y + 1] != "0" & GameBoard[this.x - 2][this.y + 2] == "0") {
-                    if (((Сheckers) GameBoard[this.x - 1][this.y + 1]).getColor() != this.color) {
+                    if (((Checkers) GameBoard[this.x - 1][this.y + 1]).getColor() != this.color) {
                         return true;
                     }
                 }
             }
             if ((this.x <= 7 & this.x >= 2) & (this.y <= 7 & this.y >= 2)) {
                 if (GameBoard[this.x - 1][this.y - 1] != "0" & GameBoard[this.x - 2][this.y - 2] == "0") {
-                    if (((Сheckers) GameBoard[this.x - 1][this.y - 1]).getColor() != this.color) {
+                    if (((Checkers) GameBoard[this.x - 1][this.y - 1]).getColor() != this.color) {
                         return true;
                     }
                 }
