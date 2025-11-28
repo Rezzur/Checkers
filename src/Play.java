@@ -6,7 +6,8 @@ public class Play {
         byte countWhite = 0;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (GameBoard[i][j] != "0") {
+                if ("0".equals(GameBoard[i][j])) {
+                    assert GameBoard[i][j] instanceof Checkers;
                     if(((Checkers) GameBoard[i][j]).getColor()==1)
                         countBlack++;
                     else  if(((Checkers) GameBoard[i][j]).getColor()==0)
@@ -36,7 +37,7 @@ public class Play {
                 System.out.println("Белые");
             }
         }
-        while (end == false) {
+        while (!end) {
             System.out.println(game);
             System.out.println("Координаты шашки для хода: ");
             boolean flag_rubka = false;
@@ -47,24 +48,26 @@ public class Play {
                         for (int i = 0; i <= 7; i++) {
                             for (int j = 0; j <= 7; j++) {
                                 try {
-                                    if (((Checkers) game.getGameBoard()[i][j]).checkKill(game.getGameBoard()) == true & ((Checkers) game.getGameBoard()[i][j]).getColor() == current_color) {
+                                    if (((Checkers) game.getGameBoard()[i][j]).checkKill(game.getGameBoard()) & ((Checkers) game.getGameBoard()[i][j]).getColor() == current_color) {
                                         flag_rubka = true;
                                         count++;
                                     }
-                                } catch (Exception e) {}
+                                } catch (Exception _) {}
                             }
                         }
                     if(flag_rubka) {
                         if (count == 1) {
+                            assert current_ch != null;
                             if(current_ch.getClass()==game.getGameBoard()[nowx][nowy].getClass()) {
-                                if (((Checkers) game.getGameBoard()[nowx][nowy]).checkKill(game.getGameBoard()) != true) {
+                                if (!((Checkers) game.getGameBoard()[nowx][nowy]).checkKill(game.getGameBoard())) {
                                     System.out.println("Рубка обязательна!");
                                     continue;
                                 }
                             }
                         } else {
+                            assert current_ch != null;
                             if(current_ch.getClass()==game.getGameBoard()[nowx][nowy].getClass()) {
-                                if (((Checkers) game.getGameBoard()[nowx][nowy]).checkKill(game.getGameBoard()) != true) {
+                                if (!((Checkers) game.getGameBoard()[nowx][nowy]).checkKill(game.getGameBoard())) {
                                     System.out.println("Рубка обязательна!");
                                     continue;
                                 }
@@ -76,8 +79,7 @@ public class Play {
                             current_ch = (Checkers) game.getGameBoard()[nowx][nowy];
                             flagprisvoenia = true;
                             if(current_ch.getColor()==1){
-                                System.out.println("Выбранна черная шашка("+nowx+";" +
-                                        ""+nowy+")");
+                                System.out.println("Выбранна черная шашка("+nowx+";" +nowy+")");
                             }else{
                                 System.out.println("Выбранна белая" +
                                         " шашка("+nowx+";"+nowy+")");
@@ -98,7 +100,7 @@ public class Play {
             }
             flagprisvoenia = false;
             if (current_ch.getColor()==1) {
-                if(current_ch.checkKill(game.getGameBoard())==true) {
+                if(current_ch.checkKill(game.getGameBoard())) {
                     while((current_ch.сheckKillForMultiKill(game.getGameBoard())[0])!=-1 & (current_ch.сheckKillForMultiKill(game.getGameBoard())[1])!=-1){
                         current_ch.killCh(game.getGameBoard(), x, y);
                         System.out.println(game);
