@@ -6,7 +6,7 @@ public class Play {
         byte countWhite = 0;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if ("0".equals(GameBoard[i][j])) {
+                if (!"0".equals(GameBoard[i][j])) {
                     assert GameBoard[i][j] instanceof Checkers;
                     if(((Checkers) GameBoard[i][j]).getColor()==1)
                         countBlack++;
