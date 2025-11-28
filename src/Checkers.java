@@ -89,42 +89,18 @@ public class Checkers {
         return false;
     }
     public void killCh(Object[][] GameBoard, byte x, byte y) {
-        try {
-            if ((GameBoard[this.x + 1][this.y + 1] != "0" & GameBoard[this.x + 2][this.y + 2] == "0" & (this.x + 2 == x & this.y + 2 == y))) {
-                if (((Checkers) GameBoard[this.x + 1][this.y + 1]).getColor() != this.color) {
-                    GameBoard[this.x + 1][this.y + 1] = "0";
-                    motion(GameBoard, x, y);
-                }
+        byte[]  arr = new byte[]{1,-1}, arr2 = new byte[]{1,-1};
+        for(int i : arr) {
+            for(int j : arr2) {
+                try {
+                    if ((GameBoard[this.x + i][this.y + j] != "0" & GameBoard[this.x + i * 2][this.y + j * 2] == "0" & (this.x + i * 2 == x & this.y + j * 2 == y))) {
+                        if (((Checkers) GameBoard[this.x + i][this.y + j]).getColor() != this.color) {
+                            GameBoard[this.x + i][this.y + j] = "0";
+                            motion(GameBoard, x, y);
+                        }
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {}
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
-        }
-        try {
-            if ((GameBoard[this.x + 1][this.y - 1] != "0" & GameBoard[this.x + 2][this.y - 2] == "0" & (this.x + 2 == x & this.y - 2 == y))) {
-                if (((Checkers) GameBoard[this.x + 1][this.y - 1]).getColor() != this.color) {
-                    GameBoard[this.x + 1][this.y - 1] = "0";
-                    motion(GameBoard, x, y);
-                }
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-        }
-        try {
-            if ((GameBoard[this.x - 1][this.y + 1] != "0" & GameBoard[this.x - 2][this.y + 2] == "0" & (this.x - 2 == x & this.y + 2 == y))) {
-                if (((Checkers) GameBoard[this.x - 1][this.y + 1]).getColor() != this.color) {
-                    GameBoard[this.x - 1][this.y + 1] = "0";
-                    motion(GameBoard, x, y);
-                }
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-        }
-        try {
-            if ((GameBoard[this.x - 1][this.y - 1] != "0" & GameBoard[this.x - 2][this.y - 2] == "0" & (this.x - 2 == x & this.y - 2 == y))) {
-                if (((Checkers) GameBoard[this.x - 1][this.y - 1]).getColor() != this.color) {
-                    GameBoard[this.x - 1][this.y - 1] = "0";
-                    motion(GameBoard, x, y);
-                }
-            }
-
-        } catch (ArrayIndexOutOfBoundsException e) {
         }
     }
     public void motion(Object[][] GameBoard, byte x, byte y){
