@@ -3,10 +3,17 @@ public class Checkers {
     private byte y;
     private byte color;
     public byte type;
+    byte[]  arr = new byte[]{1,-1};
     public Checkers(byte x, byte y, byte color){
         this.x = x;
         this.y = y;
         this.color = color;
+    }
+    public boolean indexCheck(byte i, byte j){
+        return this.x+i <= 7 &&
+                this.y+j <= 7 &&
+                this.x+i >= 0 &&
+                this.y+j >= 0;
     }
     public byte getX(){
         return this.x;
@@ -15,35 +22,15 @@ public class Checkers {
         return this.y;
     }
     public byte[] сheckKillForMultiKill(Object[][] GameBoard){
-        if((this.x <=5)&(this.y <= 5)){
-            if (GameBoard[this.x + 1][this.y + 1] != "0" & GameBoard[this.x + 2][this.y + 2] == "0") {
-                if (((Checkers) GameBoard[this.x + 1][this.y + 1]).getColor() != this.color) {
-                    byte[] arr = new byte[]{((byte) (this.x+2)),((byte) (this.y+2))};
-                    return arr;
-                }
-            }
-        }
-        if((this.x <=5)&(this.y <= 7 & this.y >=2)) {
-            if (GameBoard[this.x + 1][this.y - 1] != "0" & GameBoard[this.x + 2][this.y - 2] == "0") {
-                if (((Checkers) GameBoard[this.x + 1][this.y - 1]).getColor() != this.color) {
-                    byte[] arr = new byte[]{((byte) (this.x+2)),((byte) (this.y-2))};
-                    return arr;
-                }
-            }
-        }
-        if((this.x <= 7 & this.x >=2)&(this.y <= 5)) {
-            if (GameBoard[this.x - 1][this.y + 1] != "0" & GameBoard[this.x - 2][this.y + 2] == "0") {
-                if (((Checkers) GameBoard[this.x - 1][this.y + 1]).getColor() != this.color) {
-                    byte[] arr = new byte[]{((byte) (this.x-2)),((byte) (this.y+2))};
-                    return arr;
-                }
-            }
-        }
-        if((this.x <= 7 & this.x >=2)&(this.y <= 7 & this.y >=2)) {
-            if (GameBoard[this.x - 1][this.y - 1] != "0" & GameBoard[this.x - 2][this.y - 2] == "0") {
-                if (((Checkers) GameBoard[this.x - 1][this.y - 1]).getColor() != this.color) {
-                    byte[] arr = new byte[]{((byte) (this.x-2)),((byte) (this.y-2))};
-                    return arr;
+        for(byte i : arr) {
+            for (byte j : arr) {
+                if (indexCheck(i,  j) && indexCheck((byte) (i * 2), (byte) (j * 2))) {
+                    if (!"0".equals(GameBoard[this.x + i][this.y + j]) & "0".equals(GameBoard[this.x + i * 2][this.y + j * 2])) {
+                        if (((Checkers) GameBoard[this.x + i][this.y + j]).getColor() != this.color) {
+                            byte[] arr = new byte[]{((byte) (this.x + i * 2)), ((byte) (this.y + j * 2))};
+                            return arr;
+                        }
+                    }
                 }
             }
         }
@@ -52,54 +39,41 @@ public class Checkers {
     }
     public boolean checkMotion(Object[][] GameBoard, byte x, byte y, byte color){
         if(color == 0) {
-            // Если цвет шашки белый, то он может ходить только вперед.
-            try {
-                if (y == this.y + 1 & x == this.x + 1) {
-                    if (GameBoard[this.x + 1][this.y + 1] == "0") {
-                        return true;
+            for(byte i : arr) {
+                // Если цвет шашки белый, то он может ходить только вперед.
+                if(indexCheck(i, (byte) 1)){
+                    if (y == this.y + 1 & x == this.x + i) {
+                        if ("0".equals(GameBoard[this.x + i][this.y + 1])) {
+                            return true;
+                        }
                     }
                 }
-            }catch (Exception e){}
-            try {
-                if (y == this.y + 1 & x == this.x - 1) {
-                    if (GameBoard[this.x - 1][this.y + 1] == "0") {
-                        return true;
-                    }
-                }
-            }catch (Exception e){}
-
+            }
         } else if (color == 1) {
             // Если цвет шашки черный, то он может ходить только вперед.
-            try {
-                if (y == this.y - 1 & x == this.x + 1) {
-                    if (GameBoard[this.x + 1][this.y - 1] == "0") {
-                        return true;
+            for(byte i : arr) {
+                if(indexCheck(i, (byte) -1)){
+                    if (y == this.y - 1 & x == this.x + i) {
+                        if ("0".equals(GameBoard[this.x + i][this.y - 1])) {
+                            return true;
+                        }
                     }
                 }
-            }catch (Exception e){}
-            try {
-                if (y == this.y - 1 & x == this.x - 1) {
-                    if (GameBoard[this.x - 1][this.y - 1] == "0") {
-                        return true;
-                    }
-                }
-            }catch (Exception e){}
-
+            }
         }
         return false;
     }
     public void killCh(Object[][] GameBoard, byte x, byte y) {
-        byte[]  arr = new byte[]{1,-1}, arr2 = new byte[]{1,-1};
-        for(int i : arr) {
-            for(int j : arr2) {
-                try {
-                    if ((GameBoard[this.x + i][this.y + j] != "0" & GameBoard[this.x + i * 2][this.y + j * 2] == "0" & (this.x + i * 2 == x & this.y + j * 2 == y))) {
+        for(byte i : arr) {
+            for(byte j : arr) {
+                if(indexCheck(i, j) && indexCheck((byte) (i*2), (byte) (j*2))){
+                    if (!"0".equals(GameBoard[this.x + i][this.y + j]) & "0".equals(GameBoard[this.x + i * 2][this.y + j * 2]) & (this.x + i * 2 == x & this.y + j * 2 == y)) {
                         if (((Checkers) GameBoard[this.x + i][this.y + j]).getColor() != this.color) {
                             GameBoard[this.x + i][this.y + j] = "0";
                             motion(GameBoard, x, y);
                         }
                     }
-                } catch (ArrayIndexOutOfBoundsException e) {}
+                }
             }
         }
     }
@@ -110,41 +84,22 @@ public class Checkers {
         this.y = y;
     }
     public void MotionCh(Object[][] GameBoard, byte x, byte y, byte color) {
-        if (checkMotion(GameBoard, x, y, color) == true) {
+        if (checkMotion(GameBoard, x, y, color)) {
             motion(GameBoard, x, y);
         }
     }
     public boolean checkKill(Object[][] GameBoard) {
-        try {
-            if ((this.x <= 5 & this.x >= 0) & (this.y <= 5 & this.y >= 0)) {
-                if (GameBoard[this.x + 1][this.y + 1] != "0" & GameBoard[this.x + 2][this.y + 2] == "0") {
-                    if (((Checkers) GameBoard[this.x + 1][this.y + 1]).getColor() != this.color) {
-                        return true;
+        for(byte i : arr) {
+            for (byte j : arr) {
+                if(indexCheck(i, j) && indexCheck((byte) (i*2), (byte) (j*2))){
+                    if (!"0".equals(GameBoard[this.x + i][this.y + j]) & "0".equals(GameBoard[this.x + i*2][this.y + j*2])) {
+                        if (((Checkers) GameBoard[this.x + i][this.y + j]).getColor() != this.color) {
+                            return true;
+                        }
                     }
                 }
             }
-            if ((this.x <= 5 & this.x >= 0) & (this.y <= 7 & this.y >= 2)) {
-                if (GameBoard[this.x + 1][this.y - 1] != "0" & GameBoard[this.x + 2][this.y - 2] == "0") {
-                    if (((Checkers) GameBoard[this.x + 1][this.y - 1]).getColor() != this.color) {
-                        return true;
-                    }
-                }
-            }
-            if ((this.x <= 7 & this.x >= 2) & (this.y <= 5 & this.y >= 0)) {
-                if (GameBoard[this.x - 1][this.y + 1] != "0" & GameBoard[this.x - 2][this.y + 2] == "0") {
-                    if (((Checkers) GameBoard[this.x - 1][this.y + 1]).getColor() != this.color) {
-                        return true;
-                    }
-                }
-            }
-            if ((this.x <= 7 & this.x >= 2) & (this.y <= 7 & this.y >= 2)) {
-                if (GameBoard[this.x - 1][this.y - 1] != "0" & GameBoard[this.x - 2][this.y - 2] == "0") {
-                    if (((Checkers) GameBoard[this.x - 1][this.y - 1]).getColor() != this.color) {
-                        return true;
-                    }
-                }
-            }
-        } catch (Exception e) {}
+        }
         return false;
     }
     public byte getColor(){
