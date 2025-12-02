@@ -99,6 +99,9 @@ public class Play {
                 continue;
             }
             flagprisvoenia = false;
+            if(current_ch.checkMotionQueen(x, y, current_ch.getType())){
+                current_ch.motionQueen(game.getGameBoard(), x, y);
+            }
             if (current_ch.getColor()==1) {
                 if(current_ch.checkKill(game.getGameBoard())) {
                     while((current_ch.сheckKillForMultiKill(game.getGameBoard())[0])!=-1 & (current_ch.сheckKillForMultiKill(game.getGameBoard())[1])!=-1){

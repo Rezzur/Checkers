@@ -4,10 +4,71 @@ public class Checkers {
     private byte color;
     public byte type;
     byte[]  arr = new byte[]{1,-1};
-    public Checkers(byte x, byte y, byte color){
+    public byte getType(){
+        return this.type;
+    }
+    public byte[] checkKillQueen1(Object[][] GameBoard, byte x, byte y, byte type){
+        byte dx=this.x;
+        byte dy=this.y;
+        byte sumInd=(byte) (dx+dy);
+        byte[] arr = new byte[]{-1,-1};
+        for(byte i = sumInd;i>=0; i--){
+            for(byte j = 0; j<=sumInd; j++){
+                if(i!=dx && j!=dy){
+                    if (!"0".equals(GameBoard[i][j])) {
+                        arr[0]=i;
+                        arr[1]=j;
+                    }
+                }
+            }
+        }
+        return arr;
+    }
+    public byte[] checkKillQueen2(Object[][] GameBoard, byte x, byte y, byte type){
+        byte dx=this.x;
+        byte dy=this.y;
+        byte minInd;
+        if(dx>dy) {
+            minInd = dy;
+        }else {
+            minInd = dx;
+        }
+        byte[] arr = new byte[]{-1,-1};
+        for(byte i = 1;minInd<8; i++){
+            if(!"0".equals(GameBoard[dx+i][dy+i])){
+                arr[0]= (byte) (dx+i);
+                arr[1]= (byte) (dy+i);
+                }
+            }
+        return arr;
+    }
+    public byte[] checkQueenKill(Object[][] GameBoard, byte x, byte y, byte type) {
+        byte[] arr = new byte[2];
+        if(((Checkers) GameBoard[this.x][this.y]).checkKillQueen2(GameBoard, x, y, type)[0]!=-1){
+            arr = ((Checkers) GameBoard[this.x][this.y]).checkKillQueen2(GameBoard, x, y, type);
+        }
+        if(((Checkers) GameBoard[this.x][this.y]).checkKillQueen1(GameBoard, x, y, type)[0]!=-1)
+            arr=((Checkers) GameBoard[this.x][this.y]).checkKillQueen1(GameBoard, x, y, type);
+        return arr;
+    }
+
+    public boolean checkMotionQueen(byte x, byte y,byte  type){
+        if(type == 1) {
+            if (this.x + this.y == x + y || this.x-x == this.y - y) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public void motionQueen(Object[][] GameBoard, byte x, byte y){
+        motion(GameBoard, x, y);
+    }
+
+    public Checkers(byte x, byte y, byte color, byte type){
         this.x = x;
         this.y = y;
         this.color = color;
+        this.type = type;
     }
     public boolean indexCheck(byte i, byte j){
         return this.x+i <= 7 &&
