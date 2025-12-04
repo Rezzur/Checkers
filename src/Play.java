@@ -37,8 +37,8 @@ public class Play {
                 System.out.println("Белые");
             }
         }
+        System.out.println(game);
         while (!end) {
-            System.out.println(game);
             System.out.println("Координаты шашки для хода: ");
             boolean flag_rubka = false;
             short count=0;
@@ -91,6 +91,7 @@ public class Play {
                     System.out.println("На данных координатах нет шашки вашего цвета, попробуйте снова)");
                     }
                 }
+            System.out.println(current_ch.checkKillQueen(game.getGameBoard()));
             System.out.println("Куда хотите сходить?");
             byte x = sc.nextByte();
             byte y = sc.nextByte();
@@ -100,7 +101,7 @@ public class Play {
             }
             flagprisvoenia = false;
             if(current_ch.checkMotionQueen(x, y, current_ch.getType())){
-                current_ch.motionQueen(game.getGameBoard(), x, y);
+                current_ch.killQueen(game.getGameBoard(), x, y);
             }
             if (current_ch.getColor()==1) {
                 if(current_ch.checkKill(game.getGameBoard())) {
@@ -138,6 +139,7 @@ public class Play {
                         current_color = 1;
                     }
                 }
+            System.out.println(game);
             end = theEnd(game.getGameBoard());
             }
         if(current_ch.getColor()==1) {
