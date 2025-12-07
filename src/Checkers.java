@@ -13,27 +13,32 @@ public class Checkers {
         byte dx;
         byte dy;
         byte nowx = this.x;
-        byte nowy= this.y;
-        if (this.x<x) dx=1; else dx=-1;
-        if (this.y<y) dy=1; else dy=-1;
-        if (Math.abs(this.x - x) == Math.abs(this.y - y)) {
-            while (nowx != x && nowy != y) {
-                nowx += dx;
-                nowy += dy;
-                if ((nowx < 8 && nowx > 0) && (nowx < 8 && nowx > 0)) {
-                    if ("0".equals(GameBoard[nowx][nowy])) {
-                        motion(GameBoard, nowx, nowy);
-                    } else {
-                        killCh(GameBoard, (byte) (nowx + dx), (byte) (nowy + dy));
-                        nowx += dx;
-                        nowy+= dy;
+        byte nowy = this.y;
+        if (!"0".equals(GameBoard[x][y])) {
+            System.out.println("Сюда сходить не можете!");
+        } else {
+            if (this.x < x) dx = 1;
+            else dx = -1;
+            if (this.y < y) dy = 1;
+            else dy = -1;
+            if (Math.abs(this.x - x) == Math.abs(this.y - y)) {
+                while (nowx != x && nowy != y) {
+                    nowx += dx;
+                    nowy += dy;
+                    if ((nowx < 8 && nowx > 0) && (nowx < 8 && nowx > 0)) {
+                        if ("0".equals(GameBoard[nowx][nowy])) {
+                            motion(GameBoard, nowx, nowy);
+                        } else {
+                            killCh(GameBoard, (byte) (nowx + dx), (byte) (nowy + dy));
+                            nowx += dx;
+                            nowy += dy;
+                        }
                     }
                 }
             }
         }
     }
     public boolean checkKillQueen(Object[][] GameBoard) {
-        String result ="";
         for (byte dx : arr){
             for (byte dy : arr) {
                 byte nowx = (byte)(this.x+dx);
