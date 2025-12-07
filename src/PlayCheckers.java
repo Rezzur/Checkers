@@ -24,16 +24,17 @@ public class PlayCheckers {
     public static class Main {
         private Game game; // Игровая доска
         private boolean end; // Флаг конца игры
-        private boolean flagprisvoenia; // Флаг присвоения текущей шашки
+        boolean flagprisvoenia;
         private boolean flagColor; // Флаг присвоения цвета
         private Checkers current_ch; // Текущая шашка
-        private byte current_color = -1; // Цвет шашки 1 - черные, 0 - белые
+        private byte current_color; // Цвет шашки 1 - черные, 0 - белые
         private byte type; // Тип
         private byte currentX;
         private byte currentY;
         Scanner sc = new Scanner(System.in);
         public Main() { // Конструктор класса мэйн, где присваивается текущая шашка
             game = new Game();
+            // Флаг присвоения текущей шашки
             flagprisvoenia = false;
             current_ch = null;
             current_color = -1;
@@ -43,7 +44,10 @@ public class PlayCheckers {
         public Checkers getCurrent_ch() {
             return current_ch;
         }
-        public void identificationChecker(boolean flagprisvoenia, Checkers current_ch) {
+        public boolean getFlagprisvoenia() {
+            return flagprisvoenia;
+        }
+        public void identificationChecker() {
             while (!flagColor) { // Цикл выбора цвета
                 System.out.println("0 - Белый цвет\n1 - Черный цвет\nВведите цвет:");
                 try {
@@ -95,7 +99,8 @@ public class PlayCheckers {
         }
 
         public void play() {
-            identificationChecker(false, getCurrent_ch());
+            identificationChecker();
+            System.out.println(getCurrent_ch().getX() + " " + getCurrent_ch().getY());
         }
     }
 
