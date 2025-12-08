@@ -31,7 +31,10 @@ public class PlayCheckers {
         private byte type; // Тип
         private byte currentX;
         private byte currentY;
+        private byte x;
+        private byte y;
         Scanner sc = new Scanner(System.in);
+
         public Main() { // Конструктор класса мэйн, где присваивается текущая шашка
             game = new Game();
             // Флаг присвоения текущей шашки
@@ -41,15 +44,9 @@ public class PlayCheckers {
             end = false;
             flagColor = false;
         }
-        public Checkers getCurrent_ch() {
-            return current_ch;
-        }
-        public boolean getFlagprisvoenia() {
-            return flagprisvoenia;
-        }
         public void identificationChecker() {
             while (!flagColor) { // Цикл выбора цвета
-                System.out.println("0 - Белый цвет\n1 - Черный цвет\nВведите цвет:");
+                System.out.print("0 - Белый цвет\n1 - Черный цвет\nВведите цвет: ");
                 try {
                     current_color = sc.nextByte();
                 } catch (Exception e) {
@@ -93,20 +90,98 @@ public class PlayCheckers {
                                 System.out.println("Выбрана шашка(Дамка) белого цвета " + "(" + currentX + ":" + currentY + ")");
                             flagprisvoenia = true;
                         }
-                    }else System.out.println("Не ваша очередь");
+                    } else System.out.println("Не ваша очередь");
                 } else System.out.println("На выбранных координатах нет шашки");
             }
         }
 
         public void play() {
-            identificationChecker();
-            System.out.println(getCurrent_ch().getX() + " " + getCurrent_ch().getY());
+            while (!end) {
+                System.out.println(game);
+                boolean flag_rubka = false;
+                for (int i = 0; i <= 7; i++) {
+                    for (int j = 0; j <= 7; j++) {
+                        if (!"0".equals(game.getGameBoard()[i][j])) {
+                            if (((Checkers) game.getGameBoard()[i][j]).checkKillQueen(game.getGameBoard()) || ((Checkers) game.getGameBoard()[i][j]).checkKill(game.getGameBoard()) & (((Checkers) game.getGameBoard()[i][j]).getColor() == current_color)) {
+                                flag_rubka = true;
+
+                            }
+                        }
+                    }
+                }
+                identificationChecker();
+
+                if (current_ch.getType() == 0) {
+                    if (current_ch.checkKill(game.getGameBoard()) && flag_rubka) {
+                        while ((current_ch.сheckKillForMultiKill(game.getGameBoard())[0]) != -1 & (current_ch.сheckKillForMultiKill(game.getGameBoard())[1]) != -1) {
+                            current_ch.killCh(game.getGameBoard(), x, y);
+                            System.out.println(game);
+                            if ((current_ch.сheckKillForMultiKill(game.getGameBoard())[0]) != -1 & (current_ch.сheckKillForMultiKill(game.getGameBoard())[1]) != -1) {
+                                System.out.println("Рубка обязательна!");
+                                x = sc.nextByte();
+                                y = sc.nextByte();
+                                if (x != current_ch.getX() && y != current_ch.getY()) {
+                                    if (current_ch.getX() == x & current_ch.getY() == y) {
+                                        if (current_color == 0) current_color = 1;
+                                        else current_color = 0;
+                                        break;
+                                    }
+                                }
+
+                            }
+                        }
+                    } else {
+                        System.out.println("Введите координаты для хода: ");
+                        x = sc.nextByte();
+                        y = sc.nextByte();
+                        if (x != current_ch.getX() && y != current_ch.getY()) {
+                            if ("0".equals(game.getGameBoard()[x][y]))
+                                current_ch.MotionCh(game.getGameBoard(), x, y, current_color);
+                            else System.out.println("Сюда сходить вы не можете");
+                        }
+                    }
+                } else {
+                    if (current_ch.checkKillQueen(game.getGameBoard()) && flag_rubka) {
+                        while (current_ch.checkKillQueen(game.getGameBoard())) {
+                            System.out.println("Введите координаты для хода: ");
+                            x = sc.nextByte();
+                            y = sc.nextByte();
+                            if (x != current_ch.getX() && y != current_ch.getY()) {
+                                if ("0".equals(game.getGameBoard()[x][y]))
+                                    current_ch.killQueen(game.getGameBoard(), x, y);
+                                else System.out.println("Сюда сходить вы не можете");
+                            }
+                            System.out.println(game);
+                        }
+                    } else {
+                        System.out.println("Введите координаты для хода: ");
+                        x = sc.nextByte();
+                        y = sc.nextByte();
+                        if (x != current_ch.getX() && y != current_ch.getY()) {
+                            if ("0".equals(game.getGameBoard()[x][y]))
+                                current_ch.killQueen(game.getGameBoard(), x, y);
+                            else System.out.println("Сюда сходить вы не можете");
+                        }
+                    }
+                }
+                System.out.println(game);
+                flagprisvoenia = false;
+                if (current_ch.getX() == x & current_ch.getY() == y) {
+                    if (current_color == 0) current_color = 1;
+                    else current_color = 0;
+                }
+                if(current_ch.getY()==0&&current_ch.getColor()==1){
+                    current_ch.setType((byte) 1);
+                }
+                if(current_ch.getY()==7&&current_ch.getColor()==0){
+                    current_ch.setType((byte) 1);
+                }
+            }
         }
     }
 
-    public static void main(String[] args) {
+        public static void main(String[] args) {
             Main m = new Main();
             m.play();
-
+        }
     }
-}

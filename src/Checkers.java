@@ -39,23 +39,25 @@ public class Checkers {
         }
     }
     public boolean checkKillQueen(Object[][] GameBoard) {
-        for (byte dx : arr){
-            for (byte dy : arr) {
-                byte nowx = (byte)(this.x+dx);
-                byte nowy = (byte)(this.y+dy);
-                while ((nowx >=0 && nowx <=7) && (nowy >=0 && nowy<=7)) {
-                    System.out.println("(" + nowx + ":" + nowy + ")");
-                        if (!"0".equals(GameBoard[nowx][nowy])&&(nowx+dx < 8 && nowx+dx > 0 && nowy+dy < 8 && nowy+dy > 0)){
-                            if("0".equals(GameBoard[nowx + dx][nowy + dy])) {
-                                return true;
-                            }
+        boolean flag = false;
+        if(this.type == 1) {
+            for (byte dx : arr) {
+                for (byte dy : arr) {
+                    byte nowx = (byte) (this.x + dx);
+                    byte nowy = (byte) (this.y + dy);
+                    while ((nowx >= 0 && nowx <= 7) && (nowy >= 0 && nowy <= 7)) {
+                        if (!"0".equals(GameBoard[nowx][nowy]) && (nowx + dx < 8 && nowx + dx >= 0 && nowy + dy < 8 && nowy + dy >= 0)) {
+                            if ("0".equals(GameBoard[nowx + dx][nowy + dy])) {
+                                flag = true;
+                            }//думает что может срубить свой цвет
                         }
-                    nowx += dx;
-                    nowy += dy;
+                        nowx += dx;
+                        nowy += dy;
+                    }
                 }
             }
         }
-        return false;
+        return flag;
     }
 
     /*
@@ -113,10 +115,13 @@ public class Checkers {
         return false;
     }
 
-    public void motionQueen(Object[][] GameBoard, byte x, byte y) {
+    public void
+    motionQueen(Object[][] GameBoard, byte x, byte y) {
         motion(GameBoard, x, y);
     }
-
+    public void setType(byte i){
+        this.type = i;
+    }
     public Checkers(byte x, byte y, byte color, byte type) {
         this.x = x;
         this.y = y;

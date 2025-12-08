@@ -7,10 +7,11 @@ public class Game {
                 GameBoard[i][j] = "0";
             }
         }
-        this.GameBoard[6][7]=new Checkers((byte) 6, (byte) 7, (byte) 1, (byte) 1);
+        this.GameBoard[3][4]=new Checkers((byte) 3, (byte) 4, (byte) 1, (byte) 0);
         this.GameBoard[1][6]=new Checkers((byte) 1, (byte) 6, (byte) 0, (byte) 1);
-/*
-        for (int i = 0; i < 8; i++) {
+        this.GameBoard[5][4]=new Checkers((byte) 5, (byte) 4, (byte) 1, (byte) 0);
+        this.GameBoard[6][1]=new Checkers((byte) 6, (byte) 1, (byte) 0, (byte) 1);
+/*        for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 GameBoard[i][j] = "0";
                 for(int k = 1; k <= 14; k+=2){
